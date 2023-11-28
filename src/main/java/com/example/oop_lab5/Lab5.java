@@ -60,56 +60,57 @@ public class Lab5 extends Application {
         Button btnCube = createToolbarButton("/images/cube.png", "Cube");
         Button btnLineOO = createToolbarButton("/images/lineOO.png", "LineOO");
 
-
         toolBar.getItems().addAll(btnPoint, btnLine, btnEllipse, btnRectangle, btnCube, btnLineOO);
+
+        setupShapeSelection(rectangle, btnRectangle, shapes,
+                () -> shapeEditor.startEditor(new RectangleShape(scene, drawingArea, myTable)));
+        setupShapeSelection(line, btnLine, shapes,
+                () -> shapeEditor.startEditor(new LineShape(scene, drawingArea, myTable)));
+        setupShapeSelection(point, btnPoint, shapes,
+                () -> shapeEditor.startEditor(new PointShape(scene, drawingArea, myTable)));
+        setupShapeSelection(ellipse, btnEllipse, shapes,
+                () -> shapeEditor.startEditor(new EllipseShape(scene, drawingArea, myTable)));
+        setupShapeSelection(cube, btnCube, shapes,
+                () -> shapeEditor.startEditor(new CubeShape(scene, drawingArea, myTable)));
+        setupShapeSelection(lineOO, btnLineOO, shapes,
+                () -> shapeEditor.startEditor(new LineOOShape(scene, drawingArea, myTable)));
 
         VBox menuAndToolbar = new VBox(menuBar, toolBar);
         layout.setTop(menuAndToolbar);
 
-        rectangle.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(new RectangleShape(scene, drawingArea, myTable));
-            selection(rectangle, point, ellipse, line, lineOO, cube);
-        });
-        line.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(new LineShape(scene, drawingArea, myTable));
-            selection(line, point, ellipse, rectangle, lineOO, cube);
-        });
-        point.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(new PointShape(scene, drawingArea, myTable));
-            selection(point, line, ellipse, rectangle, lineOO, cube);
-        });
-        ellipse.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(new EllipseShape(scene, drawingArea, myTable));
-            selection(ellipse, line, point, rectangle, lineOO, cube);
-        });
-        cube.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(new CubeShape(scene, drawingArea, myTable));
-            selection(cube, ellipse, line, point, rectangle, lineOO);
-        });
-        lineOO.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(new LineOOShape(scene, drawingArea, myTable));
-            selection(lineOO, ellipse, line, point, rectangle, cube);
-        });
-
         stage.setOnCloseRequest(event -> myTable.close());
-
-        btnRectangle.setOnAction(actionEvent -> shapeEditor.startEditor(new RectangleShape(scene, drawingArea, myTable)));
-        btnLine.setOnAction(actionEvent -> shapeEditor.startEditor(new LineShape(scene, drawingArea, myTable)));
-        btnPoint.setOnAction(actionEvent -> shapeEditor.startEditor(new PointShape(scene, drawingArea, myTable)));
-        btnEllipse.setOnAction(actionEvent -> shapeEditor.startEditor(new EllipseShape(scene, drawingArea, myTable)));
-        btnCube.setOnAction(actionEvent -> shapeEditor.startEditor(new CubeShape(scene, drawingArea, myTable)));
-        btnLineOO.setOnAction(actionEvent -> shapeEditor.startEditor(new LineOOShape(scene, drawingArea, myTable)));
-
         stage.setScene(scene);
         stage.setTitle("Lab5");
         stage.show();
     }
 
-    private void selection(CheckMenuItem selectedItem, CheckMenuItem... others) {
+    public static void main(String[] args) {
+        launch();
+    }
+
+    private void selection(CheckMenuItem selectedItem, Menu shapesMenu) {
         selectedItem.setSelected(true);
-        for (CheckMenuItem item : others) {
-            item.setSelected(false);
+
+        for (MenuItem item : shapesMenu.getItems()) {
+            if (item instanceof CheckMenuItem) {
+                CheckMenuItem checkMenuItem = (CheckMenuItem) item;
+                if (checkMenuItem != selectedItem) {
+                    checkMenuItem.setSelected(false);
+                }
+            }
         }
+    }
+
+    private void setupShapeSelection(CheckMenuItem menuItem, Button button, Menu shapesMenu, Runnable action) {
+        menuItem.setOnAction(actionEvent -> {
+            action.run();
+            selection(menuItem, shapesMenu);
+        });
+
+        button.setOnAction(actionEvent -> {
+            action.run();
+            selection(menuItem, shapesMenu);
+        });
     }
 
     private Button createToolbarButton(String imagePath, String tooltipText) {
@@ -123,9 +124,5 @@ public class Lab5 extends Application {
         Tooltip.install(button, tooltip);
 
         return button;
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
