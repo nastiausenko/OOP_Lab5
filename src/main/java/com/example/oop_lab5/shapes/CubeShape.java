@@ -1,6 +1,7 @@
 package com.example.oop_lab5.shapes;
 
 import com.example.oop_lab5.interfaces.Drawable;
+import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -14,9 +15,11 @@ public class CubeShape extends RectangleShape implements Drawable {
     private double width, height;
     private double frontX, frontY;
     private double backX, backY;
+    private  MyTable myTable;
 
-    public CubeShape(Scene scene, Pane root) {
-        super(scene, root);
+    public CubeShape(Scene scene, Pane root, MyTable myTable) {
+        super(scene, root, myTable);
+        this.myTable = myTable;
     }
 
     @Override
@@ -68,6 +71,10 @@ public class CubeShape extends RectangleShape implements Drawable {
 
         root.setOnMouseReleased(event -> {
             clear(frontRectangle, backRectangle, line1, line2, line3, line4);
+            myTable.addShape(new RectangleShape("Cube", frontRectangle.getX(),
+                    frontRectangle.getY(),
+                    frontRectangle.getWidth(),
+                    frontRectangle.getHeight()));
             backRectangle = null;
             frontRectangle = null;
             line1 = null;

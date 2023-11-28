@@ -1,5 +1,6 @@
 package com.example.oop_lab5.shapes;
 
+import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;

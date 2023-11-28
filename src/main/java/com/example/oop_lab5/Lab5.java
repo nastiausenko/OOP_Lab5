@@ -67,7 +67,7 @@ public class Lab5 extends Application {
         layout.setTop(menuAndToolbar);
 
         rectangle.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(new RectangleShape(scene, drawingArea));
+            shapeEditor.startEditor(new RectangleShape(scene, drawingArea, myTable));
             selection(rectangle, point, ellipse, line, lineOO, cube);
         });
         line.setOnAction(actionEvent -> {
@@ -75,7 +75,7 @@ public class Lab5 extends Application {
             selection(line, point, ellipse, rectangle, lineOO, cube);
         });
         point.setOnAction(actionEvent -> {
-            shapeEditor.startEditor(new PointShape(scene, drawingArea));
+            shapeEditor.startEditor(new PointShape(scene, drawingArea, myTable));
             selection(point, line, ellipse, rectangle, lineOO, cube);
         });
         ellipse.setOnAction(actionEvent ->{
@@ -83,7 +83,7 @@ public class Lab5 extends Application {
             selection(ellipse, line, point, rectangle, lineOO, cube);
         });
         cube.setOnAction(actionEvent ->{
-            shapeEditor.startEditor(new CubeShape(scene, drawingArea));
+            shapeEditor.startEditor(new CubeShape(scene, drawingArea, myTable));
             selection(cube, ellipse, line, point, rectangle, lineOO);
         });
         lineOO.setOnAction(actionEvent ->{
@@ -93,11 +93,11 @@ public class Lab5 extends Application {
 
         stage.setOnCloseRequest(event -> myTable.close());
 
-        btnRectangle.setOnAction(actionEvent -> shapeEditor.startEditor(new RectangleShape(scene, drawingArea)));
+        btnRectangle.setOnAction(actionEvent -> shapeEditor.startEditor(new RectangleShape(scene, drawingArea, myTable)));
         btnLine.setOnAction(actionEvent -> shapeEditor.startEditor(new LineShape(scene, drawingArea, myTable)));
-        btnPoint.setOnAction(actionEvent -> shapeEditor.startEditor(new PointShape(scene, drawingArea)));
+        btnPoint.setOnAction(actionEvent -> shapeEditor.startEditor(new PointShape(scene, drawingArea, myTable)));
         btnEllipse.setOnAction(actionEvent -> shapeEditor.startEditor(new EllipseShape(scene, drawingArea, myTable)));
-        btnCube.setOnAction(actionEvent -> shapeEditor.startEditor(new CubeShape(scene, drawingArea)));
+        btnCube.setOnAction(actionEvent -> shapeEditor.startEditor(new CubeShape(scene, drawingArea, myTable)));
         btnLineOO.setOnAction(actionEvent -> shapeEditor.startEditor(new LineOOShape(scene, drawingArea, myTable)));
 
         stage.setScene(scene);

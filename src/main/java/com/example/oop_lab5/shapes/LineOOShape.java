@@ -14,11 +14,10 @@ public class LineOOShape extends LineShape implements Drawable {
     private Ellipse ellipse1, ellipse2;
     private final int radius = 10;
     private MyTable myTable;
-
     public LineOOShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root, myTable);
+        this.myTable = myTable;
     }
-
     @Override
     public void draw() {
         root.setOnMousePressed(event -> {
@@ -49,6 +48,11 @@ public class LineOOShape extends LineShape implements Drawable {
 
         root.setOnMouseReleased(event -> {
             clear(currentLine, ellipse1, ellipse2);
+            myTable.addShape(new LineShape("LineOO",
+                    currentLine.getStartX(),
+                    currentLine.getStartY(),
+                    currentLine.getEndX(),
+                    currentLine.getEndY()));
             ellipse1 = null;
             ellipse2 = null;
             currentLine = null;
