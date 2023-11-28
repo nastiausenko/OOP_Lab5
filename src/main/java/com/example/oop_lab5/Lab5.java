@@ -11,12 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import java.io.*;
 import java.util.Objects;
 
 public class Lab5 extends Application {
+    MyTable myTable;
+
     @Override
     public void start(Stage stage) {
         BorderPane layout = new BorderPane();
@@ -25,7 +29,7 @@ public class Lab5 extends Application {
         Scene scene = new Scene(layout, 700, 500);
 
         MyEditor shapeEditor = MyEditor.getInstance();
-        MyTable myTable = new MyTable();
+        myTable = new MyTable();
 
         MenuBar menuBar = new MenuBar();
         drawingArea.setMaxHeight(scene.getHeight() - menuBar.getHeight());
@@ -36,10 +40,22 @@ public class Lab5 extends Application {
         menuBar.getMenus().addAll(file, shapes, help);
 
         MenuItem table = new MenuItem("Table");
-        file.getItems().addAll(table);
+        MenuItem save = new MenuItem("Save");
+        file.getItems().addAll(table, save);
 
         table.setOnAction(actionEvent -> {
             myTable.createTable();
+        });
+
+        save.setOnAction(actionEvent -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Table Data");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Serialized Files", "*.txt"));
+            File file1 = fileChooser.showSaveDialog(stage);
+
+            if (file1 != null) {
+                saveShapesToFile(file1);
+            }
         });
 
         CheckMenuItem point = new CheckMenuItem("Point");
@@ -124,5 +140,22 @@ public class Lab5 extends Application {
         Tooltip.install(button, tooltip);
 
         return button;
+    }
+
+    private void saveShapesToFile(File file) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Shapes shape : myTable.getShapes()) {
+                String line = String.format("%s\n%.2f %.2f %.2f %.2f%n",
+                        shape.getShapeName(),
+                        shape.getX1(),
+                        shape.getY1(),
+                        shape.getX2(),
+                        shape.getY2());
+                writer.write(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
