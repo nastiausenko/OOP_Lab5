@@ -1,6 +1,7 @@
 package com.example.oop_lab5.shapes;
 
 import com.example.oop_lab5.interfaces.Drawable;
+import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -12,9 +13,10 @@ public class LineOOShape extends LineShape implements Drawable {
     private Line currentLine;
     private Ellipse ellipse1, ellipse2;
     private final int radius = 10;
+    private MyTable myTable;
 
-    public LineOOShape(Scene scene, Pane root) {
-        super(scene, root);
+    public LineOOShape(Scene scene, Pane root, MyTable myTable) {
+        super(scene, root, myTable);
     }
 
     @Override
