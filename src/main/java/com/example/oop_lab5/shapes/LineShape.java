@@ -5,12 +5,12 @@ import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class LineShape extends Shapes implements Drawable {
 
     private Line currentLine;
-    MyTable myTable;
 
     public LineShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);
@@ -46,5 +46,14 @@ public class LineShape extends Shapes implements Drawable {
             currentLine.setEndX(event.getX());
             currentLine.setEndY(event.getY());
         }
+    }
+
+
+    @Override
+    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
+        currentLine = new Line(x1, y1, x2, y2);
+        currentLine.setStroke(Color.BLACK);
+        currentLine.setStrokeWidth(1.5);
+        drawingPane.getChildren().add(currentLine);
     }
 }

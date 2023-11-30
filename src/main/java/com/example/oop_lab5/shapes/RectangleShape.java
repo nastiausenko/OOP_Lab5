@@ -5,11 +5,11 @@ import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleShape extends Shapes implements Drawable {
     private Rectangle currentRectangle;
-    private MyTable myTable;
 
     public RectangleShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);
@@ -31,12 +31,21 @@ public class RectangleShape extends Shapes implements Drawable {
                 myTable.addShape(new RectangleShape("Rectangle",
                         currentRectangle.getX(),
                         currentRectangle.getY(),
-                        //need to calculate endX, endY
                         currentRectangle.getWidth(),
                         currentRectangle.getHeight()));
                 currentRectangle = null;
         });
     }
+
+    @Override
+    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+        currentRectangle = new Rectangle(x1, y1, x2, y2);
+        currentRectangle.setStroke(Color.BLACK);
+        currentRectangle.setStrokeWidth(1.5);
+        currentRectangle.setFill(null);
+        drawingArea.getChildren().add(currentRectangle);
+    }
+
     protected void dragged(MouseEvent event, Rectangle currentRectangle) {
         if (currentRectangle !=null) {
             dashed(currentRectangle);

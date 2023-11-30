@@ -11,7 +11,6 @@ import javafx.scene.shape.Ellipse;
 
 public class PointShape extends Shapes {
     private Ellipse currentPoint;
-    private MyTable myTable;
 
     public PointShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);
@@ -36,14 +35,21 @@ public class PointShape extends Shapes {
         });
     }
 
+    @Override
+    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+        currentPoint = new Ellipse(x1, y1, x2, y2);
+        currentPoint.setFill(Color.BLACK);
+        drawingArea.getChildren().add(currentPoint);
+    }
+
     private void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses) {
-        for (Ellipse currentPoint: ellipses) {
-            currentPoint.setCenterX(event.getX());
-            currentPoint.setCenterY(event.getY());
-            currentPoint.setRadiusX(5);
-            currentPoint.setRadiusY(5);
-            currentPoint.setFill(Color.BLACK);
-            children.add(currentPoint);
+        for (Ellipse point: ellipses) {
+            point.setCenterX(event.getX());
+            point.setCenterY(event.getY());
+            point.setRadiusX(5);
+            point.setRadiusY(5);
+            point.setFill(Color.BLACK);
+            children.add(point);
         }
     }
     private void handle(MouseEvent event) {
