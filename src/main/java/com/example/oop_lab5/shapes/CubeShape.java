@@ -4,22 +4,33 @@ import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 
 
 public class CubeShape extends RectangleShape implements Drawable {
-    private Rectangle frontRectangle, backRectangle;
-    private Line line1, line2, line3, line4;
-    private double width, height;
-    private double frontX, frontY;
-    private double backX, backY;
-    private  MyTable myTable;
+    private Rectangle frontRectangle;
+    private Rectangle backRectangle;
+    private Line line1;
+    private Line line2;
+    private Line line3;
+    private Line line4;
+    private double width;
+    private double height;
+    private double frontX;
+    private double frontY;
+    private double backX;
+    private double backY;
 
     public CubeShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root, myTable);
         this.myTable = myTable;
+    }
+
+    public CubeShape(String shapeName, Double x1, Double y1, Double x2, Double y2) {
+        super(shapeName, x1, y1, x2, y2);
     }
 
     @Override
@@ -40,8 +51,7 @@ public class CubeShape extends RectangleShape implements Drawable {
         });
 
         root.setOnMouseDragged(event -> {
-            if (frontRectangle != null) {
-                if (event.getX() > frontRectangle.getX() && event.getY() > frontRectangle.getY()) {
+            if (frontRectangle != null && (event.getX() > frontRectangle.getX() && event.getY() > frontRectangle.getY())) {
                     width = frontRectangle.getWidth();
                     height = frontRectangle.getHeight();
                     frontX = frontRectangle.getX();
@@ -65,13 +75,15 @@ public class CubeShape extends RectangleShape implements Drawable {
                     setCoords(line3, frontX + width, frontY, backX + width, backY);
 
                     setCoords(line4, frontX + width, frontY + height, backX + width,backY + height);
-                }
+
+
             }
         });
 
         root.setOnMouseReleased(event -> {
             clear(frontRectangle, backRectangle, line1, line2, line3, line4);
-            myTable.addShape(new RectangleShape("Cube", frontRectangle.getX(),
+            myTable.addShape(new CubeShape("Cube",
+                    frontRectangle.getX(),
                     frontRectangle.getY(),
                     frontRectangle.getWidth(),
                     frontRectangle.getHeight()));
@@ -89,5 +101,37 @@ public class CubeShape extends RectangleShape implements Drawable {
         line.setStartY(startY);
         line.setEndX(endX);
         line.setEndY(endY);
+    }
+
+    @Override
+    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+        frontRectangle = new Rectangle(x1, y1, x2, y2);
+        backRectangle = new Rectangle(x1+50, y1-50, x2, y2);
+        line1 = new Line(x1, y1, x1+50, y1-50);
+        line2 = new Line(x1, y1+y2, x1+50, y1-50+y2);
+        line3 = new Line(x1+x2, y1, x1+50+x2, y1-50);
+        line4 = new Line(x1+x2, y1+y2, x1+50+x2, y1-50+y2);
+
+        frontRectangle.setStroke(Color.BLACK);
+        frontRectangle.setStrokeWidth(1.5);
+        frontRectangle.setFill(null);
+        drawingArea.getChildren().add(frontRectangle);
+        backRectangle.setStroke(Color.BLACK);
+        backRectangle.setStrokeWidth(1.5);
+        backRectangle.setFill(null);
+        drawingArea.getChildren().add(backRectangle);
+
+        line1.setStroke(Color.BLACK);
+        line1.setStrokeWidth(1.5);
+        drawingArea.getChildren().add(line1);
+        line2.setStroke(Color.BLACK);
+        line2.setStrokeWidth(1.5);
+        drawingArea.getChildren().add(line2);
+        line3.setStroke(Color.BLACK);
+        line3.setStrokeWidth(1.5);
+        drawingArea.getChildren().add(line3);
+        line4.setStroke(Color.BLACK);
+        line4.setStrokeWidth(1.5);
+        drawingArea.getChildren().add(line4);
     }
 }

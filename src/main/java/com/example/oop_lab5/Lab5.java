@@ -21,10 +21,13 @@ import java.util.Objects;
 public class Lab5 extends Application {
     private MyTable myTable;
     private Pane drawingArea;
+    
     public static final String POINT = "Point";
     public static final String RECTANGLE = "Rectangle";
     public static final String ELLIPSE = "Ellipse";
     public static final String LINE = "Line";
+    public static final String CUBE = "Cube";
+    public static final String LINEOO = "LineOO";
 
 
 
@@ -57,11 +60,11 @@ public class Lab5 extends Application {
         open.setOnAction(actionEvent -> open(stage));
 
         CheckMenuItem point = new CheckMenuItem(POINT);
-        CheckMenuItem line = new CheckMenuItem("Line");
+        CheckMenuItem line = new CheckMenuItem(LINE);
         CheckMenuItem ellipse = new CheckMenuItem(ELLIPSE);
         CheckMenuItem rectangle = new CheckMenuItem(RECTANGLE);
-        CheckMenuItem cube = new CheckMenuItem("Cube");
-        CheckMenuItem lineOO = new CheckMenuItem("LineOO");
+        CheckMenuItem cube = new CheckMenuItem(CUBE);
+        CheckMenuItem lineOO = new CheckMenuItem(LINEOO);
 
 
         shapes.getItems().addAll(point, line, ellipse, rectangle, cube, lineOO);
@@ -71,8 +74,8 @@ public class Lab5 extends Application {
         Button btnLine = createToolbarButton("/images/line.png", LINE);
         Button btnEllipse = createToolbarButton("/images/ellipse.png", ELLIPSE);
         Button btnRectangle = createToolbarButton("/images/rectangle.png", RECTANGLE);
-        Button btnCube = createToolbarButton("/images/cube.png", "Cube");
-        Button btnLineOO = createToolbarButton("/images/lineOO.png", "LineOO");
+        Button btnCube = createToolbarButton("/images/cube.png", CUBE);
+        Button btnLineOO = createToolbarButton("/images/lineOO.png", LINEOO);
 
         toolBar.getItems().addAll(btnPoint, btnLine, btnEllipse, btnRectangle, btnCube, btnLineOO);
 
@@ -161,6 +164,7 @@ public class Lab5 extends Application {
     private void loadShapesFromFile(File file) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
+            drawingArea.getChildren().clear();
             while ((line = reader.readLine()) != null) {
                 createShapeFromLine(line);
             }
@@ -197,6 +201,16 @@ public class Lab5 extends Application {
                     break;
                 case "rectangle":
                     shape = new RectangleShape(RECTANGLE, x1, y1, x2, y2);
+                    myTable.addShape(shape);
+                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    break;
+                case "cube":
+                    shape = new CubeShape(CUBE, x1, y1, x2, y2);
+                    myTable.addShape(shape);
+                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    break;
+                case "lineoo":
+                    shape = new LineOOShape(LINEOO, x1, y1, x2, y2);
                     myTable.addShape(shape);
                     shape.drawing(x1, y1, x2, y2, drawingArea);
                     break;

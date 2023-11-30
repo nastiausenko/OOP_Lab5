@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleShape extends Shapes implements Drawable {
-    private Rectangle currentRectangle;
+    private Rectangle frontRectangle;
 
     public RectangleShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);
@@ -24,26 +24,26 @@ public class RectangleShape extends Shapes implements Drawable {
     public void draw() {
         root.setOnMousePressed(this::handle);
 
-        root.setOnMouseDragged(event -> dragged(event, currentRectangle));
+        root.setOnMouseDragged(event -> dragged(event, frontRectangle));
 
         root.setOnMouseReleased(event -> {
-                clear(currentRectangle);
+                clear(frontRectangle);
                 myTable.addShape(new RectangleShape("Rectangle",
-                        currentRectangle.getX(),
-                        currentRectangle.getY(),
-                        currentRectangle.getWidth(),
-                        currentRectangle.getHeight()));
-                currentRectangle = null;
+                        frontRectangle.getX(),
+                        frontRectangle.getY(),
+                        frontRectangle.getWidth(),
+                        frontRectangle.getHeight()));
+                frontRectangle = null;
         });
     }
 
     @Override
     public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
-        currentRectangle = new Rectangle(x1, y1, x2, y2);
-        currentRectangle.setStroke(Color.BLACK);
-        currentRectangle.setStrokeWidth(1.5);
-        currentRectangle.setFill(null);
-        drawingArea.getChildren().add(currentRectangle);
+        frontRectangle = new Rectangle(x1, y1, x2, y2);
+        frontRectangle.setStroke(Color.BLACK);
+        frontRectangle.setStrokeWidth(1.5);
+        frontRectangle.setFill(null);
+        drawingArea.getChildren().add(frontRectangle);
     }
 
     protected void dragged(MouseEvent event, Rectangle currentRectangle) {
@@ -55,7 +55,7 @@ public class RectangleShape extends Shapes implements Drawable {
     }
 
     private void handle(MouseEvent event) {
-        currentRectangle = new Rectangle();
-        show(event, root.getChildren(), currentRectangle);
+        frontRectangle = new Rectangle();
+        show(event, root.getChildren(), frontRectangle);
     }
 }
