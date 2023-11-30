@@ -1,5 +1,6 @@
 package com.example.oop_lab5;
 
+import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.shape_editor.MyEditor;
 import com.example.oop_lab5.shapes.*;
 import com.example.oop_lab5.table.MyTable;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Objects;
 
-public class Lab5 extends Application {
+public class Lab5 extends Application implements Drawable {
     private MyTable myTable;
     private Pane drawingArea;
     
@@ -187,32 +188,32 @@ public class Lab5 extends Application {
                 case "point":
                     shape = new PointShape(POINT, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 case "line":
                     shape = new LineShape(LINE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 case "ellipse":
                     shape = new EllipseShape(ELLIPSE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 case "rectangle":
                     shape = new RectangleShape(RECTANGLE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 case "cube":
                     shape = new CubeShape(CUBE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 case "lineoo":
                     shape = new LineOOShape(LINEOO, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.drawing(x1, y1, x2, y2, drawingArea);
+                    shape.show(x1, y1, x2, y2, drawingArea);
                     break;
                 default:
                     break;

@@ -38,7 +38,11 @@ public class LineShape extends Shapes implements Drawable {
 
     private void handle(MouseEvent event) {
         currentLine = new Line();
-        show(event, root.getChildren(), currentLine);
+        x1 = event.getX();
+        x2 = event.getX();
+        y1 = event.getY();
+        y2 = event.getY();
+        show(x1, y1, x2, y2, root.getChildren(), currentLine);
     }
 
     protected void dragged(MouseEvent event, Line currentLine) {
@@ -50,10 +54,10 @@ public class LineShape extends Shapes implements Drawable {
 
 
     @Override
-    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
+    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         currentLine = new Line(x1, y1, x2, y2);
-        currentLine.setStroke(Color.BLACK);
         currentLine.setStrokeWidth(1.5);
-        drawingPane.getChildren().add(currentLine);
+        currentLine.setStroke(Color.BLACK);
+        drawingArea.getChildren().add(currentLine);
     }
 }

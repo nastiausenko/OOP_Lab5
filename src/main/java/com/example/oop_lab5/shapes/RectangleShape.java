@@ -38,11 +38,11 @@ public class RectangleShape extends Shapes implements Drawable {
     }
 
     @Override
-    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         frontRectangle = new Rectangle(x1, y1, x2, y2);
-        frontRectangle.setStroke(Color.BLACK);
-        frontRectangle.setStrokeWidth(1.5);
         frontRectangle.setFill(null);
+        frontRectangle.setStrokeWidth(1.5);
+        frontRectangle.setStroke(Color.BLACK);
         drawingArea.getChildren().add(frontRectangle);
     }
 
@@ -56,6 +56,10 @@ public class RectangleShape extends Shapes implements Drawable {
 
     private void handle(MouseEvent event) {
         frontRectangle = new Rectangle();
-        show(event, root.getChildren(), frontRectangle);
+        x1 = event.getX();
+        x2 = 0.0;
+        y1 = event.getY();
+        y2 = 0.0;
+        show(x1, y1, 0.0, 0.0, root.getChildren(), frontRectangle);
     }
 }

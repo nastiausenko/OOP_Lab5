@@ -26,11 +26,17 @@ public class LineOOShape extends LineShape implements Drawable {
     public void draw() {
         root.setOnMousePressed(event -> {
             currentLine = new Line();
-            show(event, root.getChildren(), currentLine);
+
+            x1 = event.getX();
+            x2 = event.getX();
+            y1 = event.getY();
+            y2 = event.getY();
+
+            show(x1, y1, x2, y2, root.getChildren(), currentLine);
 
             ellipse1 = new Ellipse();
             ellipse2 = new Ellipse();
-            show(event, root.getChildren(), ellipse1, ellipse2);
+            show(x1, y1, x2, y2, root.getChildren(), ellipse1, ellipse2);
 
             ellipse1.setRadiusX(RADIUS);
             ellipse1.setRadiusY(RADIUS);
@@ -64,7 +70,7 @@ public class LineOOShape extends LineShape implements Drawable {
     }
 
     @Override
-    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
+    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
         currentLine = new Line(x1, y1, x2, y2);
         currentLine.setStroke(Color.BLACK);
         currentLine.setStrokeWidth(1.5);

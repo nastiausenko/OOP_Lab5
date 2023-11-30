@@ -9,25 +9,25 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public interface Drawable {
-    default void show(MouseEvent event, ObservableList<Node> children, Ellipse... ellipses){
+    default void show(Double x1, Double y1, Double x2, Double y2, ObservableList<Node> children, Ellipse... ellipses){
         for (Ellipse currentEllipse: ellipses) {
-            currentEllipse.setCenterX(event.getX());
-            currentEllipse.setCenterY(event.getY());
+            currentEllipse.setCenterX(x1);
+            currentEllipse.setCenterY(y1);
             currentEllipse.setRadiusX(0);
             currentEllipse.setRadiusY(0);
             currentEllipse.setStroke(Color.BLACK);
             currentEllipse.setStrokeWidth(1.5);
-            currentEllipse.setFill(null);
+            currentEllipse.setFill(Color.LIGHTGRAY);
             children.add(currentEllipse);
         }
     }
 
-    default void show(MouseEvent event, ObservableList<Node> children, Rectangle... rectangles) {
+    default void show(Double x1, Double y1, Double x2, Double y2, ObservableList<Node> children, Rectangle... rectangles) {
         for (Rectangle currentRectangle: rectangles) {
-            currentRectangle.setX(event.getX());
-            currentRectangle.setY(event.getY());
-            currentRectangle.setWidth(0);
-            currentRectangle.setHeight(0);
+            currentRectangle.setX(x1);
+            currentRectangle.setY(y1);
+            currentRectangle.setWidth(x2);
+            currentRectangle.setHeight(y2);
             currentRectangle.setStroke(Color.BLACK);
             currentRectangle.setStrokeWidth(1.5);
             currentRectangle.setFill(null);
@@ -35,12 +35,12 @@ public interface Drawable {
         }
     }
 
-    default void show(MouseEvent event, ObservableList<Node> children, Line... lines){
+    default void show(Double x1, Double y1, Double x2, Double y2, ObservableList<Node> children, Line... lines){
         for (Line currentLine: lines) {
-            currentLine.setStartX(event.getX());
-            currentLine.setStartY(event.getY());
-            currentLine.setEndX(event.getX());
-            currentLine.setEndY(event.getY());
+            currentLine.setStartX(x1);
+            currentLine.setStartY(y1);
+            currentLine.setEndX(x2);
+            currentLine.setEndY(y2);
             currentLine.setStroke(Color.BLACK);
             currentLine.setStrokeWidth(1.5);
             children.add(currentLine);

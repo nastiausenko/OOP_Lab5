@@ -4,7 +4,6 @@ import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
@@ -43,8 +42,13 @@ public class CubeShape extends RectangleShape implements Drawable {
             line3 = new Line();
             line4 = new Line();
 
-            show(event, root.getChildren(), frontRectangle, backRectangle);
-            show(event, root.getChildren(), line1, line2, line3, line4);
+            x1 = event.getX();
+            x2 = event.getX();
+            y1 = event.getY();
+            y2 = event.getY();
+
+            show(x1, y1, 0.0, 0.0, root.getChildren(), frontRectangle, backRectangle);
+            show(x1, y1, x2, y2, root.getChildren(), line1, line2, line3, line4);
 
             backRectangle.setX(event.getX() + 50);
             backRectangle.setY(event.getY() - 50);
@@ -69,14 +73,9 @@ public class CubeShape extends RectangleShape implements Drawable {
                     backRectangle.setHeight(height);
 
                     setCoords(line1, frontX, frontY, backX, backY);
-
                     setCoords(line2, frontX, frontY + height, backX, backY + height);
-
                     setCoords(line3, frontX + width, frontY, backX + width, backY);
-
                     setCoords(line4, frontX + width, frontY + height, backX + width,backY + height);
-
-
             }
         });
 
@@ -104,34 +103,20 @@ public class CubeShape extends RectangleShape implements Drawable {
     }
 
     @Override
-    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
-        frontRectangle = new Rectangle(x1, y1, x2, y2);
-        backRectangle = new Rectangle(x1+50, y1-50, x2, y2);
-        line1 = new Line(x1, y1, x1+50, y1-50);
-        line2 = new Line(x1, y1+y2, x1+50, y1-50+y2);
-        line3 = new Line(x1+x2, y1, x1+50+x2, y1-50);
-        line4 = new Line(x1+x2, y1+y2, x1+50+x2, y1-50+y2);
+    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+        frontRectangle = new Rectangle();
+        backRectangle = new Rectangle();
+        line1 = new Line();
+        line2 = new Line();
+        line3 = new Line();
+        line4 = new Line();
 
-        frontRectangle.setStroke(Color.BLACK);
-        frontRectangle.setStrokeWidth(1.5);
-        frontRectangle.setFill(null);
-        drawingArea.getChildren().add(frontRectangle);
-        backRectangle.setStroke(Color.BLACK);
-        backRectangle.setStrokeWidth(1.5);
-        backRectangle.setFill(null);
-        drawingArea.getChildren().add(backRectangle);
+        show(x1, y1, x2, y2, drawingArea.getChildren(), frontRectangle);
+        show(x1+50, y1-50, x2, y2, drawingArea.getChildren(), backRectangle);
 
-        line1.setStroke(Color.BLACK);
-        line1.setStrokeWidth(1.5);
-        drawingArea.getChildren().add(line1);
-        line2.setStroke(Color.BLACK);
-        line2.setStrokeWidth(1.5);
-        drawingArea.getChildren().add(line2);
-        line3.setStroke(Color.BLACK);
-        line3.setStrokeWidth(1.5);
-        drawingArea.getChildren().add(line3);
-        line4.setStroke(Color.BLACK);
-        line4.setStrokeWidth(1.5);
-        drawingArea.getChildren().add(line4);
+        show(x1, y1, x1+50, y1-50, drawingArea.getChildren(), line1);
+        show(x1, y1+y2, x1+50, y1-50+y2, drawingArea.getChildren(), line2);
+        show(x1+x2, y1, x1+50+x2, y1-50, drawingArea.getChildren(), line3);
+        show(x1+x2, y1+y2, x1+50+x2, y1-50+y2, drawingArea.getChildren(), line4);
     }
 }
