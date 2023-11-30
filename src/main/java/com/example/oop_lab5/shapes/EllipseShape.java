@@ -11,8 +11,6 @@ import javafx.scene.shape.Ellipse;
 
 public class EllipseShape extends Shapes implements Drawable {
     private Ellipse currentEllipse;
-    private MyTable myTable;
-
     public EllipseShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);
         this.myTable = myTable;
@@ -39,6 +37,16 @@ public class EllipseShape extends Shapes implements Drawable {
             currentEllipse = null;
         });
     }
+
+    @Override
+    public void drawing(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+        currentEllipse = new Ellipse(x1, y1, x2, y2);
+        currentEllipse.setFill(Color.LIGHTGRAY);
+        currentEllipse.setStrokeWidth(1.5);
+        currentEllipse.setStroke(Color.BLACK);
+        drawingArea.getChildren().add(currentEllipse);
+    }
+
 
     private void handle(MouseEvent event) {
         currentEllipse = new Ellipse();
