@@ -69,41 +69,31 @@ public class FileHandler {
             double x2 = Double.parseDouble(tokens[3].replace(",", "."));
             double y2 = Double.parseDouble(tokens[4].replace(",", "."));
 
-            Shapes shape;
-            switch (shapeName.toLowerCase()) {
-                case "point":
-                    shape = new PointShape(POINT, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "line":
-                    shape = new LineShape(LINE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "ellipse":
-                    shape = new EllipseShape(ELLIPSE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "rectangle":
-                    shape = new RectangleShape(RECTANGLE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "cube":
-                    shape = new CubeShape(CUBE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "lineoo":
-                    shape = new LineOOShape(LINEOO, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                default:
-                    break;
+            Shapes shape = createShape(shapeName, x1, y1, x2, y2);
+            if (shape != null) {
+                myTable.addShape(shape);
+                shape.display(x1, y1, x2, y2, drawingArea);
             }
         }
     }
+
+    private Shapes createShape(String shapeName, double x1, double y1, double x2, double y2) {
+        switch (shapeName.toLowerCase()) {
+            case "point":
+                return new PointShape(POINT, x1, y1, x2, y2);
+            case "line":
+                return new LineShape(LINE, x1, y1, x2, y2);
+            case "ellipse":
+                return new EllipseShape(ELLIPSE, x1, y1, x2, y2);
+            case "rectangle":
+                return new RectangleShape(RECTANGLE, x1, y1, x2, y2);
+            case "cube":
+                return new CubeShape(CUBE, x1, y1, x2, y2);
+            case "lineoo":
+                return new LineOOShape(LINEOO, x1, y1, x2, y2);
+            default:
+                return null;
+        }
+    }
+
 }
