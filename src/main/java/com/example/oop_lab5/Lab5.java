@@ -1,6 +1,5 @@
 package com.example.oop_lab5;
 
-import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.shape_editor.MyEditor;
 import com.example.oop_lab5.shapes.*;
 import com.example.oop_lab5.table.FileHandler;
@@ -17,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class Lab5 extends Application implements Drawable {
+public class Lab5 extends Application {
     public static final String POINT = "Point";
     public static final String RECTANGLE = "Rectangle";
     public static final String ELLIPSE = "Ellipse";
@@ -48,15 +47,17 @@ public class Lab5 extends Application implements Drawable {
 
         MenuItem table = new MenuItem("Table");
         SeparatorMenuItem separator = new SeparatorMenuItem();
-        //add save functionality
         MenuItem save = new MenuItem("Save");
         MenuItem saveAs = new MenuItem("Save as...");
         MenuItem open = new MenuItem("Open");
-        file.getItems().addAll(table, separator, save, saveAs, open);
+        MenuItem create = new MenuItem("Create");
+        file.getItems().addAll(table, separator, save, saveAs, open, create);
 
         table.setOnAction(actionEvent -> myTable.createTable());
+        save.setOnAction(actionEvent -> fileHandler.save(stage, myTable));
         saveAs.setOnAction(actionEvent -> fileHandler.saveAs(stage, myTable));
         open.setOnAction(actionEvent -> fileHandler.open(stage, drawingArea, myTable));
+        create.setOnAction(actionEvent -> drawingArea.getChildren().clear());
 
         CheckMenuItem point = new CheckMenuItem(POINT);
         CheckMenuItem line = new CheckMenuItem(LINE);
@@ -64,7 +65,6 @@ public class Lab5 extends Application implements Drawable {
         CheckMenuItem rectangle = new CheckMenuItem(RECTANGLE);
         CheckMenuItem cube = new CheckMenuItem(CUBE);
         CheckMenuItem lineOO = new CheckMenuItem(LINEOO);
-
 
         shapes.getItems().addAll(point, line, ellipse, rectangle, cube, lineOO);
 

@@ -10,6 +10,8 @@ import java.io.*;
 import static com.example.oop_lab5.Lab5.*;
 
 public class FileHandler {
+    private File lastSavedFile;
+
     public void saveAs(Stage stage, MyTable myTable) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".txt", "*.txt"));
@@ -17,6 +19,14 @@ public class FileHandler {
 
         if (file1 != null) {
             saveShapesToFile(file1, myTable);
+        }
+    }
+
+    public void save(Stage stage, MyTable myTable) {
+        if (lastSavedFile != null) {
+            saveShapesToFile(lastSavedFile, myTable);
+        } else {
+            saveAs(stage, myTable);
         }
     }
 
@@ -29,6 +39,7 @@ public class FileHandler {
             loadShapesFromFile(file2, drawingArea, myTable);
         }
     }
+
     private void saveShapesToFile(File file, MyTable myTable) {
         try (ObjectOutputStream ignored = new ObjectOutputStream(new FileOutputStream(file));
              BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -42,6 +53,7 @@ public class FileHandler {
                         shape.getY2());
                 writer.write(line);
             }
+            lastSavedFile = file;
         } catch (IOException e) {
             e.fillInStackTrace();
         }
@@ -95,5 +107,4 @@ public class FileHandler {
                 return null;
         }
     }
-
 }
