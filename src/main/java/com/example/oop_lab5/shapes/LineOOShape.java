@@ -1,6 +1,5 @@
 package com.example.oop_lab5.shapes;
 
-import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -9,11 +8,11 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
 
-public class LineOOShape extends LineShape implements Drawable {
+public class LineOOShape extends LineShape {
     private Line currentLine;
     private Ellipse ellipse1;
     private Ellipse ellipse2;
-    private static final int RADIUS = 10;
+    private static final Double RADIUS = 10.0;
     public LineOOShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root, myTable);
         this.myTable = myTable;
@@ -36,7 +35,7 @@ public class LineOOShape extends LineShape implements Drawable {
 
             ellipse1 = new Ellipse();
             ellipse2 = new Ellipse();
-            show(x1, y1, x2, y2, root.getChildren(), ellipse1, ellipse2);
+            show(x1, y1, RADIUS, RADIUS, root.getChildren(), ellipse1, ellipse2);
 
             ellipse1.setRadiusX(RADIUS);
             ellipse1.setRadiusY(RADIUS);
@@ -70,22 +69,15 @@ public class LineOOShape extends LineShape implements Drawable {
     }
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
-        currentLine = new Line(x1, y1, x2, y2);
-        currentLine.setStroke(Color.BLACK);
-        currentLine.setStrokeWidth(1.5);
-        drawingPane.getChildren().add(currentLine);
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingPane) {
+        currentLine = new Line();
+        ellipse1 = new Ellipse();
+        ellipse2 = new Ellipse();
 
-        ellipse1 = new Ellipse(x1, y1, RADIUS, RADIUS);
+        show(x1, y1, x2, y2, drawingPane.getChildren(), currentLine);
+        show(x1, y1, RADIUS, RADIUS, drawingPane.getChildren(), ellipse1);
         ellipse1.setFill(Color.WHITESMOKE);
-        ellipse1.setStrokeWidth(1.5);
-        ellipse1.setStroke(Color.BLACK);
-        drawingPane.getChildren().add(ellipse1);
-
-        ellipse2 = new Ellipse(x2, y2, RADIUS, RADIUS);
+        show(x2, y2, RADIUS, RADIUS, drawingPane.getChildren(), ellipse2);
         ellipse2.setFill(Color.WHITESMOKE);
-        ellipse2.setStrokeWidth(1.5);
-        ellipse2.setStroke(Color.BLACK);
-        drawingPane.getChildren().add(ellipse2);
     }
 }

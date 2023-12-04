@@ -54,7 +54,7 @@ public class LineShape extends Shapes implements Drawable {
 
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         currentLine = new Line(x1, y1, x2, y2);
         currentLine.setStrokeWidth(1.5);
         currentLine.setStroke(Color.BLACK);

@@ -36,7 +36,7 @@ public class PointShape extends Shapes {
     }
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         currentPoint = new Ellipse(x1, y1, x2, y2);
         currentPoint.setFill(Color.BLACK);
         drawingArea.getChildren().add(currentPoint);

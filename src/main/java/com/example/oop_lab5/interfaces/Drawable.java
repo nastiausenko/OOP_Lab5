@@ -2,7 +2,6 @@ package com.example.oop_lab5.interfaces;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -13,11 +12,11 @@ public interface Drawable {
         for (Ellipse currentEllipse: ellipses) {
             currentEllipse.setCenterX(x1);
             currentEllipse.setCenterY(y1);
-            currentEllipse.setRadiusX(0);
-            currentEllipse.setRadiusY(0);
+            currentEllipse.setRadiusX(x2);
+            currentEllipse.setRadiusY(y2);
             currentEllipse.setStroke(Color.BLACK);
             currentEllipse.setStrokeWidth(1.5);
-            currentEllipse.setFill(Color.LIGHTGRAY);
+            currentEllipse.setFill(null);
             children.add(currentEllipse);
         }
     }

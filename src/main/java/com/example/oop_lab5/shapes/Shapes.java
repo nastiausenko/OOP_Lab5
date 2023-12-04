@@ -18,7 +18,7 @@ public abstract class Shapes {
     protected Double x2;
     protected Double y2;
     public abstract void draw();
-    public abstract void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea);
+    public abstract void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea);
 
     protected Shapes(Scene scene, Pane root) {
         this.scene = scene;

@@ -15,11 +15,11 @@ import java.util.List;
 
 public class MyTable extends Stage {
     ObservableList<Shapes> shapes = FXCollections.observableArrayList();
+    TableView<Shapes> table = new TableView<>();
     public void createTable() {
+        table.getColumns().clear();
         BorderPane layout = new BorderPane();
         Scene tableScene = new Scene(layout, 301, 200);
-
-        TableView<Shapes> table = new TableView<>();
 
         TableColumn<Shapes, String> shapeName = new TableColumn<>("Shape");
         shapeName.setMaxWidth(75);
@@ -59,5 +59,9 @@ public class MyTable extends Stage {
 
     public void addShape(Shapes shape) {
         shapes.add(shape);
+    }
+
+    public void clearTable() {
+        table.getItems().clear();
     }
 }

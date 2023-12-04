@@ -38,7 +38,7 @@ public class RectangleShape extends Shapes implements Drawable {
     }
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         frontRectangle = new Rectangle(x1, y1, x2, y2);
         frontRectangle.setFill(null);
         frontRectangle.setStrokeWidth(1.5);

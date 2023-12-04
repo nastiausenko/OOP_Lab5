@@ -1,6 +1,5 @@
 package com.example.oop_lab5.shapes;
 
-import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -9,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 
 
-public class CubeShape extends RectangleShape implements Drawable {
+public class CubeShape extends RectangleShape {
     private Rectangle frontRectangle;
     private Rectangle backRectangle;
     private Line line1;
@@ -103,7 +102,7 @@ public class CubeShape extends RectangleShape implements Drawable {
     }
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         frontRectangle = new Rectangle();
         backRectangle = new Rectangle();
         line1 = new Line();

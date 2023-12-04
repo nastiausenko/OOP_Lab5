@@ -22,14 +22,12 @@ import java.util.Objects;
 public class Lab5 extends Application implements Drawable {
     private MyTable myTable;
     private Pane drawingArea;
-    
     public static final String POINT = "Point";
     public static final String RECTANGLE = "Rectangle";
     public static final String ELLIPSE = "Ellipse";
     public static final String LINE = "Line";
     public static final String CUBE = "Cube";
     public static final String LINEOO = "LineOO";
-
 
 
     @Override
@@ -166,6 +164,7 @@ public class Lab5 extends Application implements Drawable {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             drawingArea.getChildren().clear();
+            myTable.clearTable();
             while ((line = reader.readLine()) != null) {
                 createShapeFromLine(line);
             }
@@ -188,32 +187,32 @@ public class Lab5 extends Application implements Drawable {
                 case "point":
                     shape = new PointShape(POINT, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 case "line":
                     shape = new LineShape(LINE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 case "ellipse":
                     shape = new EllipseShape(ELLIPSE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 case "rectangle":
                     shape = new RectangleShape(RECTANGLE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 case "cube":
                     shape = new CubeShape(CUBE, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 case "lineoo":
                     shape = new LineOOShape(LINEOO, x1, y1, x2, y2);
                     myTable.addShape(shape);
-                    shape.show(x1, y1, x2, y2, drawingArea);
+                    shape.display(x1, y1, x2, y2, drawingArea);
                     break;
                 default:
                     break;

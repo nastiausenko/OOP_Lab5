@@ -39,7 +39,7 @@ public class EllipseShape extends Shapes implements Drawable {
     }
 
     @Override
-    public void show(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
+    public void display(Double x1, Double y1, Double x2, Double y2, Pane drawingArea) {
         currentEllipse = new Ellipse(x1, y1, x2, y2);
         currentEllipse.setFill(Color.LIGHTGRAY);
         currentEllipse.setStrokeWidth(1.5);
@@ -54,7 +54,7 @@ public class EllipseShape extends Shapes implements Drawable {
         x2 = event.getX();
         y1 = event.getY();
         y2 = event.getY();
-        show(x1, y1, x2, y2, root.getChildren(), currentEllipse);
+        show(x1, y1, 0.0, 0.0, root.getChildren(), currentEllipse);
     }
 
     private void dragged(MouseEvent event, Ellipse currentEllipse) {
