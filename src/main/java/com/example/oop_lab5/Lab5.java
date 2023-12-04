@@ -3,6 +3,7 @@ package com.example.oop_lab5;
 import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.shape_editor.MyEditor;
 import com.example.oop_lab5.shapes.*;
+import com.example.oop_lab5.table.FileHandler;
 import com.example.oop_lab5.table.MyTable;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,16 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-import java.io.*;
 import java.util.Objects;
 
 public class Lab5 extends Application implements Drawable {
-    private MyTable myTable;
-    private Pane drawingArea;
     public static final String POINT = "Point";
     public static final String RECTANGLE = "Rectangle";
     public static final String ELLIPSE = "Ellipse";
@@ -32,7 +28,10 @@ public class Lab5 extends Application implements Drawable {
 
     @Override
     public void start(Stage stage) {
+        Pane drawingArea;
+        MyTable myTable;
         BorderPane layout = new BorderPane();
+        FileHandler fileHandler = new FileHandler();
         Scene scene = new Scene(layout, 700, 500);
         drawingArea = new Pane();
         layout.setCenter(drawingArea);
@@ -48,15 +47,16 @@ public class Lab5 extends Application implements Drawable {
         menuBar.getMenus().addAll(file, shapes, help);
 
         MenuItem table = new MenuItem("Table");
+        SeparatorMenuItem separator = new SeparatorMenuItem();
         //add save functionality
         MenuItem save = new MenuItem("Save");
         MenuItem saveAs = new MenuItem("Save as...");
         MenuItem open = new MenuItem("Open");
-        file.getItems().addAll(table, save, saveAs, open);
+        file.getItems().addAll(table, separator, save, saveAs, open);
 
         table.setOnAction(actionEvent -> myTable.createTable());
-        saveAs.setOnAction(actionEvent -> saveAs(stage));
-        open.setOnAction(actionEvent -> open(stage));
+        saveAs.setOnAction(actionEvent -> fileHandler.saveAs(stage, myTable));
+        open.setOnAction(actionEvent -> fileHandler.open(stage, drawingArea, myTable));
 
         CheckMenuItem point = new CheckMenuItem(POINT);
         CheckMenuItem line = new CheckMenuItem(LINE);
@@ -140,103 +140,5 @@ public class Lab5 extends Application implements Drawable {
         Tooltip.install(button, tooltip);
 
         return button;
-    }
-
-    private void saveShapesToFile(File file) {
-        try (ObjectOutputStream ignored = new ObjectOutputStream(new FileOutputStream(file));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Shapes shape : myTable.getShapes()) {
-                String line = String.format("%s" +
-                                " %.2f %.2f %.2f %.2f\n",
-                        shape.getShapeName(),
-                        shape.getX1(),
-                        shape.getY1(),
-                        shape.getX2(),
-                        shape.getY2());
-                writer.write(line);
-            }
-        } catch (IOException e) {
-            e.fillInStackTrace();
-        }
-    }
-
-    private void loadShapesFromFile(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            drawingArea.getChildren().clear();
-            myTable.clearTable();
-            while ((line = reader.readLine()) != null) {
-                createShapeFromLine(line);
-            }
-        } catch (IOException e) {
-            e.fillInStackTrace();
-        }
-    }
-
-    private void createShapeFromLine(String line) {
-        String[] tokens = line.trim().split("\\s+");
-        if (tokens.length <= 6) {
-            String shapeName = tokens[0];
-            double x1 = Double.parseDouble(tokens[1].replace(",", "."));
-            double y1 = Double.parseDouble(tokens[2].replace(",", "."));
-            double x2 = Double.parseDouble(tokens[3].replace(",", "."));
-            double y2 = Double.parseDouble(tokens[4].replace(",", "."));
-
-            Shapes shape;
-            switch (shapeName.toLowerCase()) {
-                case "point":
-                    shape = new PointShape(POINT, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "line":
-                    shape = new LineShape(LINE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "ellipse":
-                    shape = new EllipseShape(ELLIPSE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "rectangle":
-                    shape = new RectangleShape(RECTANGLE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "cube":
-                    shape = new CubeShape(CUBE, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                case "lineoo":
-                    shape = new LineOOShape(LINEOO, x1, y1, x2, y2);
-                    myTable.addShape(shape);
-                    shape.display(x1, y1, x2, y2, drawingArea);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    private void saveAs(Stage stage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".txt", "*.txt"));
-        File file1 = fileChooser.showSaveDialog(stage);
-
-        if (file1 != null) {
-            saveShapesToFile(file1);
-        }
-    }
-
-    private void open(Stage stage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".txt", "*.txt"));
-        File file2 = fileChooser.showOpenDialog(stage);
-
-        if (file2 != null) {
-            loadShapesFromFile(file2);
-        }
     }
 }
