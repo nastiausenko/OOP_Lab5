@@ -50,14 +50,17 @@ public class Lab5 extends Application {
         MenuItem save = new MenuItem("Save");
         MenuItem saveAs = new MenuItem("Save as...");
         MenuItem open = new MenuItem("Open");
-        MenuItem create = new MenuItem("Create");
-        file.getItems().addAll(table, separator, save, saveAs, open, create);
+        MenuItem newLayout = new MenuItem("New");
+        file.getItems().addAll(table, separator, save, saveAs, open, newLayout);
 
         table.setOnAction(actionEvent -> myTable.createTable());
         save.setOnAction(actionEvent -> fileHandler.save(stage, myTable));
         saveAs.setOnAction(actionEvent -> fileHandler.saveAs(stage, myTable));
         open.setOnAction(actionEvent -> fileHandler.open(stage, drawingArea, myTable));
-        create.setOnAction(actionEvent -> drawingArea.getChildren().clear());
+        newLayout.setOnAction(actionEvent -> {
+            drawingArea.getChildren().clear();
+            myTable.clearTable();
+        });
 
         CheckMenuItem point = new CheckMenuItem(POINT);
         CheckMenuItem line = new CheckMenuItem(LINE);

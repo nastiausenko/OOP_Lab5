@@ -46,7 +46,6 @@ public class MyTable extends Stage {
         table.getColumns().addAll(columns);
 
         layout.setCenter(table);
-
         this.setAlwaysOnTop(true);
         this.setScene(tableScene);
         this.setTitle("Table");
