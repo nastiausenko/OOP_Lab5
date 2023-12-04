@@ -1,6 +1,5 @@
 package com.example.oop_lab5.shapes;
 
-import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -9,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
 
-public class EllipseShape extends Shapes implements Drawable {
+public class EllipseShape extends Shapes {
     private Ellipse currentEllipse;
     public EllipseShape(Scene scene, Pane root, MyTable myTable) {
         super(scene, root);

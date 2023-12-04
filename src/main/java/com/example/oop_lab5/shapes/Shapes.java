@@ -1,5 +1,6 @@
 package com.example.oop_lab5.shapes;
 
+import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -7,8 +8,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 
-
-public abstract class Shapes {
+public abstract class Shapes implements Drawable {
     protected Scene scene;
     protected Pane root;
     protected String shapeName;

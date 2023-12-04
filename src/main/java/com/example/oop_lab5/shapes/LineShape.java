@@ -1,6 +1,5 @@
 package com.example.oop_lab5.shapes;
 
-import com.example.oop_lab5.interfaces.Drawable;
 import com.example.oop_lab5.table.MyTable;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -8,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-public class LineShape extends Shapes implements Drawable {
+public class LineShape extends Shapes {
 
     private Line currentLine;
 
