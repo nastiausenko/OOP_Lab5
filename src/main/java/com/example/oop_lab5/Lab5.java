@@ -2,7 +2,7 @@ package com.example.oop_lab5;
 
 import com.example.oop_lab5.shape_editor.MyEditor;
 import com.example.oop_lab5.shapes.*;
-import com.example.oop_lab5.table.FileHandler;
+import com.example.oop_lab5.file_handler.FileHandler;
 import com.example.oop_lab5.table.MyTable;
 import javafx.application.Application;
 import javafx.scene.Scene;

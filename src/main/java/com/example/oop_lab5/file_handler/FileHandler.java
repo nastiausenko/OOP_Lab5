@@ -1,6 +1,8 @@
-package com.example.oop_lab5.table;
+package com.example.oop_lab5.file_handler;
 
 import com.example.oop_lab5.shapes.*;
+import com.example.oop_lab5.table.MyTable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -104,7 +106,16 @@ public class FileHandler {
             case "lineoo":
                 return new LineOOShape(LINEOO, x1, y1, x2, y2);
             default:
+                showErrorAlert();
                 return null;
         }
+    }
+
+    private void showErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Undefined shape");
+        alert.setHeaderText(null);
+        alert.setContentText("The specified shape is not recognized.");
+        alert.showAndWait();
     }
 }
