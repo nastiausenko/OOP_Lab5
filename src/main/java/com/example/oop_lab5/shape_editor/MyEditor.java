@@ -5,6 +5,7 @@ import com.example.oop_lab5.shapes.Shapes;
 public class MyEditor {
     private static final MyEditor myEditor = new MyEditor();
 
+    private MyEditor() { }
     public static MyEditor getInstance() {
         return myEditor;
     }
